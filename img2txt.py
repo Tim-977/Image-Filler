@@ -1,4 +1,5 @@
 from PIL import Image
+import csv
 
 # IMAGE MUST BE 500x500 in .png format
 
@@ -20,8 +21,7 @@ def get_pixel_colors(image_path):
 image_path = 'image_1.png'
 pixel_colors_array = get_pixel_colors(image_path)
 
-temp = ''
-
-with open('out.txt', 'w', encoding='UTF-8') as f:
-    for elem in pixel_colors_array:
-        f.write(','.join(elem) + '\n')
+with open('out.csv', 'w', newline='') as f:
+    csv_writer = csv.writer(f)
+    for row in pixel_colors_array:
+        csv_writer.writerow(row)

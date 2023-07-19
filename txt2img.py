@@ -1,13 +1,10 @@
 from PIL import Image
+import csv
 
-def create_image_from_pixel_colors(txt_file_path, output_image_path):
-    with open(txt_file_path, 'r', encoding='UTF-8') as f:
-        lines = f.readlines()
-
-    pixel_colors_array = []
-    for line in lines:
-        pixel_colors = line.strip().split(',')
-        pixel_colors_array.append(pixel_colors)
+def create_image_from_csv(csv_file_path, output_image_path):
+    with open(csv_file_path, 'r', newline='') as f:
+        csv_reader = csv.reader(f)
+        pixel_colors_array = [row for row in csv_reader]
 
     height = len(pixel_colors_array)
     width = len(pixel_colors_array[0])
@@ -25,6 +22,6 @@ def create_image_from_pixel_colors(txt_file_path, output_image_path):
 
     new_image.save(output_image_path)
 
-txt_file_path = 'out.txt'
+csv_file_path = 'out.csv'
 output_image_path = 'recreated_image.png'
-create_image_from_pixel_colors(txt_file_path, output_image_path)
+create_image_from_csv(csv_file_path, output_image_path)
