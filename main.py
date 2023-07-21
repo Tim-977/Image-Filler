@@ -137,10 +137,10 @@ with open('nbs.txt', 'w', encoding='UTF-8') as f:
             break
     print('DONE')
 
-# with open('out.csv', 'w', newline='') as f:
-#     csv_writer = csv.writer(f)
-#     for row in decimal_array:
-#         csv_writer.writerow(row)
+with open('out.csv', 'w', newline='') as f:
+    csv_writer = csv.writer(f)
+    for row in decimal_array:
+        csv_writer.writerow(row)
 
 # csv_file_path = 'out.csv'
 # output_image_path = 'recreated_image.png'
