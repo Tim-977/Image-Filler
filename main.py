@@ -43,22 +43,29 @@ def sort_neighbors(arr):
 
     rows = len(arr)
     cols = len(arr[0])
-    
-    print(sum(len(row) for row in arr)) # 250000
 
-    pixel_neighbors = {}
+    #pprint(arr)
+    print('LEN ARR: ', sum(len(row) for row in arr)) # 250000
+
+    pixel_neighbors = []
 
     for i in range(rows):
         for j in range(cols):
             pixel = arr[i][j]
             neighbors = get_neighbors(i, j, rows, cols)
-            pixel_neighbors[pixel] = [arr[r][c] for r, c in neighbors]
-    print(len(pixel_neighbors)) # 43796
-    for pixel, neighbors in pixel_neighbors.items():
-        if len(neighbors) < 8:
-            temp_median = find_median(neighbors)
-            neighbors += [temp_median] * (8 - len(neighbors))
-    return pixel_neighbors.items()
+            temp_arr = []
+            temp_arr.append(pixel)
+            temp_arr += [arr[r][c] for r, c in neighbors]
+            pixel_neighbors.append(temp_arr)
+    #pprint(pixel_neighbors)
+    print('LEN NEW ARR: ', len(pixel_neighbors)) # 43796
+    for i in range(len(pixel_neighbors)):
+        #print('ELEM=1: ', pixel_neighbors[i])
+        if len(pixel_neighbors[i]) < 9:
+            temp_median = find_median(pixel_neighbors[i])
+            pixel_neighbors[i] += [temp_median] * (9 - len(pixel_neighbors[i]))
+        #print('ELEM=2: ', pixel_neighbors[i], len(pixel_neighbors[i]))
+    return pixel_neighbors
 
 
 def get_pixel_colors(image_path):
@@ -110,11 +117,25 @@ sorted_nbs_decimal_array = sort_neighbors(decimal_array)
 
 print('LEN_nbs: ', len(sorted_nbs_decimal_array))
 
+# with open('nbs.txt', 'w', encoding='UTF-8') as f:
+    # f.write(sorted_nbs_decimal_array)
+
+# print(sorted_nbs_decimal_array[0])
+
 with open('nbs.txt', 'w', encoding='UTF-8') as f:
     stop_sign = 0
-    for pixel, neighbors in sorted_nbs_decimal_array:
-        f.write(f"Pixel: {pixel}, Neighbors: {neighbors} - {len(neighbors)} - {stop_sign}\n")
-        stop_sign += 1
+    # [[7566706, 7500913, 7435635, 7369842, 7468274.0, 7468274.0, 7468274.0, 7468274.0, 7468274.0],
+    # [7566706, 7500913, 7435635, 7369842, 7468274.0, 7468274.0, 7468274.0, 7468274.0, 7468274.0],
+    # [7566706, 7500913, 7435635, 7369842, 7468274.0, 7468274.0, 7468274.0, 7468274.0, 7468274.0],
+    # [7566706, 7500913, 7435635, 7369842, 7468274.0, 7468274.0, 7468274.0, 7468274.0, 7468274.0]]
+    for i in range(len(sorted_nbs_decimal_array)):
+        if stop_sign < 10 or True:
+            f.write(f"Pixel: {sorted_nbs_decimal_array[i][0]}, Neighbors: {sorted_nbs_decimal_array[i][1:]} - {len(sorted_nbs_decimal_array[i][1:])} - {stop_sign}\n")
+            stop_sign += 1
+            #print(stop_sign)
+        else:
+            break
+    print('DONE')
 
 # with open('out.csv', 'w', newline='') as f:
 #     csv_writer = csv.writer(f)
