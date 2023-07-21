@@ -106,7 +106,7 @@ def create_image_from_csv(csv_file_path, output_image_path):
     new_image.save(output_image_path)
 
 
-image_path = 'image_2.png'
+image_path = 'pics\\image_2.png'
 pixel_colors_array = get_pixel_colors(image_path)
 
 decimal_array = hex_to_dec_array(pixel_colors_array)
