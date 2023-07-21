@@ -115,6 +115,8 @@ print('LEN: ', sum(len(row) for row in decimal_array))
 
 sorted_nbs_decimal_array = sort_neighbors(decimal_array)
 
+sorted_nbs_decimal_array = [[float(element) for element in row] for row in sorted_nbs_decimal_array]
+
 print('LEN_nbs: ', len(sorted_nbs_decimal_array))
 
 # with open('nbs.txt', 'w', encoding='UTF-8') as f:
@@ -139,7 +141,7 @@ with open('nbs.txt', 'w', encoding='UTF-8') as f:
 
 with open('out.csv', 'w', newline='') as f:
     csv_writer = csv.writer(f)
-    for row in decimal_array:
+    for row in sorted_nbs_decimal_array:
         csv_writer.writerow(row)
 
 # csv_file_path = 'out.csv'
